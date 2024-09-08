@@ -11,7 +11,7 @@ const userSchema = Schema(
     password: {
       type: String,
       required: true,
-      unique,
+      unique: true,
     },
 
     name: {
@@ -38,5 +38,5 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-const User = mongoose.model("User", userschema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;
