@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form {
+  @apply w-[400px] flex flex-col rounded-xl;
+}
+
+.form-label {
+  @apply text-[22px] mb-[6px];
+}
+
+.form-input {
+  @apply border-b text-[18px] p-[5px] pl-[10px] mb-[35px];
+}

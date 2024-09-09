@@ -1,30 +1,35 @@
 {
   "compilerOptions": {
-    "target": "es6", //어떤버전의 js로 컴파일할지 정의
-    "lib": [ //어떤 환경에서 사용하는지 정의(api자동완성 제공해줌)
-      "dom", //브라우저
-      "dom.iterable",
-      "esnext"
+    "target": "ES6",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
     ],
-    "baseUrl": "./src", // 추가된 것 ./src를 절대 경로로 지정
-    "allowJs": true, //ts안에서 js허용(js파일 import가능)
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "rootDir": "./", 
     "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "resolveJsonModule": true, 
+    "allowJs": true, 
+    "outDir": "./dist", 
+    "removeComments": true, /*컴파일 시 주석이 제거된다.*/
+    "noEmit": true, /* true로 설정하면, 컴파일 해도 .js 파일이 생성되지 않는다.
+.js 파일을 생성하지 않고 .ts 파일에 에러가 없는지 확인 하고 싶을 때 사용한다.*/
+    "noEmitOnError": true, /* ts파일에 에러가 있으면 .js파일을 생성하지 않는다. */
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true, 
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true /* 이 옵션은 외부 라이브러리(타입 정의 파일)에 대한 타입 체크를 건너뛸지 여부를 설정한다. true로 설정하면 TypeScript 컴파일러는 외부 라이브러리의 타입을 체크하지 않는다*/
   },
-  "include": [ //컴파일할 폴더 입력. src의 모든파일 확인함
-    "src"
+  "include": [
+    "src",
+    "react-app-env.d.ts"
   ],
   "exclude": [
-    "node_modules"   
+    "node_modules"
   ],
 }
