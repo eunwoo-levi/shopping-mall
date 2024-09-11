@@ -7,7 +7,7 @@
 }
 
 .form-label {
-  @apply text-[22px] mb-[6px];
+  @apply text-[22px] mb-[6px] font-semibold;
 }
 
 .form-input {
