@@ -16,10 +16,11 @@ const uiSlice = createSlice({
       };
     },
     hideToastMessage(state:any) {
-      state.open = false;
+      state.toastMessage={message:"",status:""}
     },
   },
 });
 
+// action 객체는 type과 payload 등..  가지고 있다.
 export const { showToastMessage, hideToastMessage } = uiSlice.actions;
 export default uiSlice.reducer;

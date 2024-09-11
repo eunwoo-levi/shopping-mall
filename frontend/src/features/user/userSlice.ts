@@ -15,13 +15,13 @@ export const registerUser = createAsyncThunk(
   ) => {try{
     const res = await api.post("/user", {name,email,password})
     // 성공
-    dispatch(showToastMessage({messages:"회원가입을 완료하였습니다.", status:"success"}))
+    dispatch(showToastMessage({message:"회원가입을 완료하였습니다.", status:"success"}))
     navigate('/login')
 
     // axios는 기본적으로 data라는 객체로 내줌 , 그리고 백엔드에서 data로 return하게 설정했으므로 data.data가 됌
     return res.data.data
   }catch(err:any){
-    dispatch(showToastMessage({messages:"회원가입을 실패하였습니다.", status:"error"}))
+    dispatch(showToastMessage({message:"회원가입을 실패하였습니다.", status:"error"}))
     return rejectWithValue(err.error)
   }}
 );

@@ -1,9 +1,12 @@
+import AppLayout from "./layout/AppLayout";
 import AppRouter from "./routes/AppRouter";
 
 export default function App() {
   return (
     <>
-      <AppRouter />
+      <AppLayout>
+        <AppRouter />
+      </AppLayout>
     </>
   );
 }

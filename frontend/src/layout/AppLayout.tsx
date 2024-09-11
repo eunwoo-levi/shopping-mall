@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import ToastMessage from "../components/ToastMessage";
 
 interface Props {
@@ -8,7 +8,8 @@ interface Props {
 export default function AppLayout({ children }: Props) {
   return (
     <div>
-      <ToastMessage />;{children}
+      <ToastMessage />
+      {children}
     </div>
   );
 }
