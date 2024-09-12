@@ -1,6 +1,6 @@
 const userController = {};
 const bcrypt = require("bcryptjs");
-const User = require("../models/User");
+const User = require("../models/user");
 
 // router 쓰이는 콜백함수 (userController) 에는 req,res 값을 받는다
 userController.createUser = async (req, res) => {

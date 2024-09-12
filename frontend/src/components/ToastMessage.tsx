@@ -10,6 +10,7 @@ const ToastMessage = () => {
     if (toastMessage) {
       const { message, status } = toastMessage;
       if (message !== "" && status !== "") {
+        //  toast[status](message, { theme: "colored" });
         switch (status) {
           case "success":
             toast.success(message, { theme: "colored" });
