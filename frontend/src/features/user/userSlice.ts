@@ -2,10 +2,34 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../utils/api";
 import { showToastMessage } from "../common/uiSlice";
 
+interface LoginProps{
+  email:string; password:string
+}
+
 interface Props{
    email: string; name: string; password: string; navigate: any 
-
 }
+
+export const loginWithEmail = createAsyncThunk(
+  "user/loginWithEmail",
+  async({email,password}:LoginProps, {rejectWithValue})=>{
+    try{
+      const res = await api.post("/auth/login", {email,password})
+      //성공
+      const token = res.data.token;
+      // 1. local storage - 브라우저를 끄거나 새로고침해도 유지가 됌 2. session storage - 특정 기간 동안만 유지 , 새로고침해도 유지가 되지만 끄면 사라짐
+      sessionStorage.setItem("token", token);
+      //LoginPage
+      return res.data
+    }catch(err:any){
+      // 실패
+      // 실패시 생긴 에러값을 reducer에 저장
+      return rejectWithValue(err.error)
+    }
+  }
+)
+
+
 // createAsyncThunk 함수 3가지 반환함=> pending 비동기 작업이 시작, fulfilled 비동기 작업이 성공, rejected 비동기 작업이 실패했을 때 발생  
 export const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -26,6 +50,26 @@ export const registerUser = createAsyncThunk(
   }}
 );
 
+export const loginWithToken = createAsyncThunk(
+  // _ 인 이유는 id, password같은 정보가 없다 , token으로 받아옴
+  "user/loginWithToken", async(_, {rejectWithValue})=>{
+    try{
+      const res = await api.get("/user/me")
+      return res.data
+    }catch(err:any){
+      return rejectWithValue(err.error)
+    }
+  }
+)
+
+export const logout = createAsyncThunk(
+  "user/logout",
+  async (_, { dispatch }) => {
+    sessionStorage.removeItem("token");
+    dispatch(clearUser());
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -40,6 +84,9 @@ const userSlice = createSlice({
       state.loginError = null;
       state.registrationError = null;
     },
+    clearUser:(state)=>{
+      state.user = null
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state)=>{
@@ -49,10 +96,24 @@ const userSlice = createSlice({
         state.registrationError=null})
         .addCase(registerUser.rejected, (state:any, action)=>{
         state.registrationError=action.payload
+    }).addCase(loginWithEmail.pending, (state)=>{
+      state.loading=true
+    }).addCase(loginWithEmail.fulfilled,(state,action)=>{
+      state.loading=false;
+      state.user = action.payload.user
+      state.loginError=null
+    }).addCase(loginWithEmail.rejected,(state,action:any)=>{
+      state.loading=false
+      state.loginError = action.payload;
+    }).addCase(loginWithToken.fulfilled, (state,action)=>{
+      state.user = action.payload.user
+    }).addCase(logout.fulfilled, (state)=>{
+      state.user = null
     })
+
   },
 });
-export const { clearErrors } = userSlice.actions;
+export const { clearErrors,clearUser } = userSlice.actions;
 export default userSlice.reducer;
 
 // reducers 는 async 없이 직접적으로 아이템을 호출할때 
